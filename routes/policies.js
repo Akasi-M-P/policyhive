@@ -106,4 +106,40 @@ router.post("/", (req, res) => {
   res.json({ success: true, data: policy });
 });
 
+// Update/Edit a policy
+router.put("/:id", (req, res) => {
+  const policy = policies.find((policy) => policy.id === +req.params.id);
+
+  if (!policy) {
+    return res
+      .status(404)
+      .json({ success: false, error: "Resource Not Found" });
+  }
+
+  policy.text = req.body.text || policy.text;
+  policy.sector = req.body.sector || policy.sector;
+
+  res.json({ success: true, data: policy });
+});
+
+// Delete a policy
+router.delete("/:id", (req, res) => {
+  const policy = policies.find((policy) => policy.id === +req.params.id);
+
+  if (!policy) {
+    return res
+      .status(404)
+      .json({ success: false, error: "Resource Not Found" });
+  }
+
+  // policy.text = req.body.text || policy.text;
+  // policy.sector = req.body.sector || policy.sector;
+
+  const index = policies.indexOf(policy);
+
+  policies.splice(index, 1);
+
+  res.json({ success: true, data: {} });
+});
+
 module.exports = router;
