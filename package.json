@@ -4,7 +4,8 @@
   "description": "PolicyHive is a collaborative platform where citizens share policy ideas across sectors (education, agriculture, tourism, etc.), and institutions can review them. The app allows users to **add, edit, and delete policy ideas**.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,8 @@
   "homepage": "https://github.com/Akasi-M-P/policyhive#readme",
   "dependencies": {
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }
