@@ -39,3 +39,6 @@ Thumbs.db
 # Optional: coverage/testing
 coverage/
 *.lcov
+
+#files
+file.txt

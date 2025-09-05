@@ -3,9 +3,14 @@ require("dotenv").config();
 const port = process.env.PORT || 5000;
 const connectDB = require("./config/db");
 
+const path = require("path");
+
 connectDB();
 
 const app = express();
+
+// Static Folder
+app.use(express.static(path.join(__dirname, "public")));
 
 //Body parser middleware
 app.use(express.json());
