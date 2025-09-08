@@ -1,23 +1,9 @@
+import PoliciesApi from "../services/PoliciesApi";
+
 class PolicyList {
   constructor() {
     this._policyListEl = document.querySelector("#policy-list");
-    this._policies = [
-      {
-        id: 1,
-        text: "policy 1",
-        username: "peter",
-        sector: "business",
-        date: "12/06/2026",
-      },
-      {
-        id: 2,
-        text: "policy 2",
-        username: "joan",
-        sector: "agriculture",
-        date: "12/06/2026",
-      },
-    ];
-
+    this._policies = [];
     this._validSectors = new Set();
     this._validSectors.add("technology");
     this._validSectors.add("software");
@@ -25,6 +11,26 @@ class PolicyList {
     this._validSectors.add("inventions");
     this._validSectors.add("business");
     this._validSectors.add("health");
+  }
+
+  async getPolicies() {
+    try {
+      const res = await PoliciesApi.getPolicies();
+      this._policies = res.data.data;
+      this.render();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async addNewPolicyToList() {
+    try {
+      const res = await PoliciesApi.getPolicies();
+      this._policies = res.data.data;
+      this.render();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   getSectorClass(sector) {
@@ -61,3 +67,7 @@ class PolicyList {
 }
 
 export default PolicyList;
+
+// Example usage (move async call outside constructor)
+const policyList = new PolicyList();
+policyList.getPolicies();

@@ -9,4 +9,3 @@ const policyForm = new PolicyForm();
 const policyList = new PolicyList();
 
 policyForm.render();
-policyList.render();

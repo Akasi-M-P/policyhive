@@ -45,17 +45,28 @@ router.post("/", async (req, res) => {
 // Update/Edit a policy
 router.put("/:id", async (req, res) => {
   try {
-    const updatedPolicy = await Policy.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: {
-          text: req.body.text,
-          sector: req.body.sector,
+    const policy = await Policy.findById(req.params.id);
+
+    // When usernames match
+    if (policy.username === req.body.username) {
+      const updatedPolicy = await Policy.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: {
+            text: req.body.text,
+            sector: req.body.sector,
+          },
         },
-      },
-      { new: true }
-    );
-    res.json({ success: true, data: updatedPolicy });
+        { new: true }
+      );
+      return res.json({ success: true, data: updatedPolicy });
+    }
+
+    // When usernames do not match
+    res.status(403).json({
+      success: false,
+      error: "Sorry, You are not authorized to update this resource",
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, error: "Something went wrong" });
@@ -65,8 +76,19 @@ router.put("/:id", async (req, res) => {
 // Delete a policy
 router.delete("/:id", async (req, res) => {
   try {
-    await Policy.findByIdAndDelete(req.params.id);
-    res.json({ success: true, data: {} });
+    const policy = await Policy.findById(req.params.id);
+
+    // When usernames match
+    if (policy.username === req.body.username) {
+      await Policy.findByIdAndDelete(req.params.id);
+      return res.json({ success: true, data: {} });
+    }
+
+    // When usernames do not match
+    res.status(403).json({
+      success: false,
+      error: "Sorry, You are not authorized to delete this resource",
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, error: "Something went wrong" });
