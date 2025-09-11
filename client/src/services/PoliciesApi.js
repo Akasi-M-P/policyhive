@@ -2,7 +2,7 @@ import axios from "axios";
 
 class PoliciesApi {
   constructor() {
-    this._apiURL = "http://localhost:5000/api/policies";
+    this._apiURL = "/api/policies";
   }
 
   getPolicies() {
